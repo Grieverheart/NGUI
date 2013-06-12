@@ -22,7 +22,6 @@ public:
 	NGUI::Manager           *gui_manager_;
 	
 private:
-	NGUI::Renderers::OpenGL *gui_renderer_;
 	TextureManager          *tex_manager_;
 	GLuint                  *texData_;
 	

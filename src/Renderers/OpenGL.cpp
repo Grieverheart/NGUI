@@ -73,6 +73,17 @@ void OpenGL::init(void){
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void OpenGL::resize(int w, int h){
+	width_ = w;
+	height_ = h;
+	shader_->bind();
+	{
+		glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)w, 0.0f, (float)h);
+		shader_->setUniform("projectionMatrix", 1, projectionMatrix);
+	}
+	shader_->unbind();
+}
+
 void OpenGL::drawVisualPackets(const std::vector<VisualPacket>& vipackets){
 	
 	// glActiveTexture(GL_TEXTURE0);
@@ -81,7 +92,7 @@ void OpenGL::drawVisualPackets(const std::vector<VisualPacket>& vipackets){
 		const Rect& rect = packet.rect_;
 		const Texture& tex = packet.tex_;
 		glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(rect.w_, rect.h_, 1.0f));
-		modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f*rect.w_ + rect.x_, 600.0f - 0.5f*rect.h_ - rect.y_, 0.0f)) * modelMatrix;
+		modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f*rect.w_ + rect.x_, height_ - 0.5f*rect.h_ - rect.y_, 0.0f)) * modelMatrix;
 		shader_->setUniform("modelMatrix", 1, modelMatrix);
 		glBindTexture(GL_TEXTURE_2D, *(GLuint*)tex.data_);
 		

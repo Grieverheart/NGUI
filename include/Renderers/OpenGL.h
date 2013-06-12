@@ -12,10 +12,14 @@ namespace NGUI{
 		public:
 			~OpenGL(void);
 			void init(void);
+			void resize(int w, int h);
 			void drawVisualPackets(const std::vector<VisualPacket>& vipackets);
 		private:
 			unsigned int vao_;
 			unsigned int vbo_;
+			
+			int width_, height_;
+			
 			Shader *shader_;
 		};
 		

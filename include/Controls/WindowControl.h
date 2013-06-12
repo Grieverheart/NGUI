@@ -11,7 +11,7 @@ namespace NGUI{
 		public:
 			~Window(void);
 			void addControl(Controls::Base* control);
-			bool onMouseMove(int mx, int my);
+			void onMouseMove(int mx, int my);
 			std::vector<VisualPacket> getVisualPackets(void)const;
 		private:
 			std::vector<Controls::Base*> controls_;

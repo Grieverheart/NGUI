@@ -28,6 +28,10 @@ void Base::setParent(Base* parent){
 	parent_ = parent;
 }
 
+bool Base::onMouseClick(unsigned char btn, bool pressed, int mx, int my){
+	return false;
+}
+
 //TODO: Cache Position and Size and refresh when parent is resized
 
 int Base::getPosX(void)const{

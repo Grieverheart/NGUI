@@ -22,7 +22,7 @@ std::vector<VisualPacket> Window::getVisualPackets(void)const{
 	return packets;
 }
 
-bool Window::onMouseMove(int mx, int my){
+void Window::onMouseMove(int mx, int my){
 	static bool isMouseInside = false;
 	if(isPointInside(mx, my)){
 		if(!isMouseInside) std::cout << "Mouse entered " << mx << ", " << my << std::endl;
@@ -32,6 +32,4 @@ bool Window::onMouseMove(int mx, int my){
 		std::cout << "Mouse left " << mx << ", " << my << std::endl;
 		isMouseInside = false;
 	}
-	
-	return isMouseInside;
 }

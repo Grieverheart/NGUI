@@ -12,7 +12,6 @@ OpenGLContext::OpenGLContext(void){
 }
 
 OpenGLContext::~OpenGLContext(void){
-	delete gui_renderer_;
 	delete gui_manager_;
 	delete tex_manager_;
 	if(texData_) delete texData_;
@@ -49,11 +48,10 @@ bool OpenGLContext::create30Context(void){
 
 void OpenGLContext::setupScene(int argc, char *argv[]){
 	tex_manager_ = new TextureManager();
-	gui_renderer_ = new NGUI::Renderers::OpenGL();
-	gui_renderer_->init();
+	NGUI::Renderers::OpenGL *gui_renderer_ = new NGUI::Renderers::OpenGL();
 	gui_manager_ = new NGUI::Manager(gui_renderer_);
-	NGUI::Controls::Window* window = new NGUI::Controls::Window();
-	NGUI::Controls::Window* window2 = new NGUI::Controls::Window();
+	NGUI::Controls::Window *window = new NGUI::Controls::Window();
+	NGUI::Controls::Window *window2 = new NGUI::Controls::Window();
 	window->setSize(250, 150);
 	window->setPosition(20, 20);
 	texData_ = new GLuint(tex_manager_->load("bg.png"));
@@ -76,6 +74,7 @@ void OpenGLContext::reshapeWindow(int w, int h){
 	windowWidth = w;
 	windowHeight = h;
 	glViewport(0, 0, windowWidth, windowHeight);
+	gui_manager_->setSize(w, h);
 }
 
 void OpenGLContext::processScene(void){

@@ -6,11 +6,22 @@
 using namespace NGUI;
 
 Manager::Manager(Renderers::Base* renderer):
-	renderer_(renderer)
-{}
+	renderer_(renderer),
+	mx_(0), my_(0),
+	width_(1), height_(1)
+{
+	renderer_->init();
+}
 
 Manager::~Manager(void){
 	for(auto control: controls_) delete control;
+	delete renderer_;
+}
+
+void Manager::setSize(int w, int h){
+	width_  = w;
+	height_ = h;
+	renderer_->resize(w, h);
 }
 
 void Manager::addControl(Controls::Base* control){
@@ -25,23 +36,15 @@ void Manager::render(void)const{
 }
 
 void Manager::mouseMotionEvent(int x, int y){
-	for(auto control: controls_){
-		control->onMouseMove(x, y);
-	}
+	mx_ = x;
+	my_ = y;
+	for(auto control: controls_) control->onMouseMove(x, y);
 }
 
-bool Manager::mouseLeftClickEvent(bool isPressed, int x, int y){
+bool Manager::mouseClickEvent(unsigned char btn, bool isPressed){
 	bool controlClicked = false;
 	for(auto control: controls_){
-		controlClicked = control->onMouseMove(x, y);
-	}
-	return controlClicked;
-}
-
-bool Manager::mouseRightClickEvent(bool isPressed, int x, int y){
-	bool controlClicked = false;
-	for(auto control: controls_){
-		controlClicked = control->onMouseMove(x, y);
+		controlClicked = control->onMouseClick(btn, isPressed, mx_, my_);
 	}
 	return controlClicked;
 }

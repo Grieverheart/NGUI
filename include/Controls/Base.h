@@ -17,7 +17,8 @@ namespace NGUI{
 			virtual void setTexture(const Texture& tex);
 			void setParent(Controls::Base* parent);
 			virtual std::vector<VisualPacket> getVisualPackets(void)const;
-			virtual bool onMouseMove(int mx, int my) = 0;
+			virtual void onMouseMove(int mx, int my) = 0;
+			virtual bool onMouseClick(unsigned char btn, bool pressed, int mx, int my);
 		protected:
 			bool isPointInside(int x, int y)const;
 			const Rect& getRect(void)const;

@@ -16,14 +16,16 @@ namespace NGUI{
 	public:
 		explicit Manager(Renderers::Base* renderer);
 		~Manager(void);
+		void setSize(int w, int h);
 		void addControl(Controls::Base* control);
 		void render(void)const;
 		void mouseMotionEvent(int x, int y);
-		bool mouseLeftClickEvent(bool isPressed, int x, int y);
-		bool mouseRightClickEvent(bool isPressed, int x, int y);
+		bool mouseClickEvent(unsigned char btn, bool isPressed);
 	private:
 		Renderers::Base* renderer_;
 		std::vector<Controls::Base*> controls_;
+		int mx_, my_;
+		int width_, height_;
 	};
 
 }
