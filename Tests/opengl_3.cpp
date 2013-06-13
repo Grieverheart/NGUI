@@ -1,5 +1,6 @@
 #include "opengl_3.h"
 #include "../include/Controls/WindowControl.h"
+#include "../include/Controls/Anchor.h"
 #include "../include/Renderers/OpenGL.h"
 #include <GL/freeglut.h>
 #include <iostream>
@@ -51,18 +52,23 @@ void OpenGLContext::setupScene(int argc, char *argv[]){
 	NGUI::Renderers::OpenGL *gui_renderer_ = new NGUI::Renderers::OpenGL();
 	gui_manager_ = new NGUI::Manager(gui_renderer_);
 	NGUI::Controls::Window *window = new NGUI::Controls::Window();
+	NGUI::Controls::Anchor *anchor = new NGUI::Controls::Anchor();
 	NGUI::Controls::Window *window2 = new NGUI::Controls::Window();
 	window->setSize(250, 150);
 	window->setPosition(20, 20);
 	texData_ = new GLuint(tex_manager_->load("bg.png"));
-	NGUI::Texture tex(texData_);
-	window->setTexture(tex);
-	
-	window2->setSize(60, 60);
-	window2->setPosition(0, 0);
-	window2->setTexture(tex);
+	window->setTexture(NGUI::Texture(texData_));
 	
 	window->addControl(window2);
+	window2->setSize(60, 60);
+	window2->setPosition(0, 0);
+	window2->setTexture(NGUI::Texture(texData_));
+	
+	window->addControl(anchor);
+	anchor->setSize(20, 20);
+	anchor->setPosition(-20, -20);
+	texData_ = new GLuint(tex_manager_->load("anchor2.png"));
+	anchor->setTexture(NGUI::Texture(texData_));
 	
 	gui_manager_->addControl(window);
 	glClearColor(0.1f, 0.6f, 0.8f, 0.0f);
@@ -82,6 +88,7 @@ void OpenGLContext::processScene(void){
 	float this_time = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
 	if(this_time-last_time > 1.0f / 61.0f){
 		last_time = this_time;
+		redisplay = true;
 	}
 }
 

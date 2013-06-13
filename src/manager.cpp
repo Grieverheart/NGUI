@@ -42,9 +42,13 @@ void Manager::mouseMotionEvent(int x, int y){
 }
 
 bool Manager::mouseClickEvent(unsigned char btn, bool isPressed){
-	bool controlClicked = false;
-	for(auto control: controls_){
-		controlClicked = control->onMouseClick(btn, isPressed, mx_, my_);
+	for(auto ctrl_itr = controls_.begin(); ctrl_itr < controls_.end(); ctrl_itr++){
+		if((*ctrl_itr)->onMouseClick(btn, isPressed, mx_, my_)){
+			Controls::Base* temp = *ctrl_itr;
+			controls_.erase(ctrl_itr);
+			controls_.push_back(temp);
+			return true;
+		}
 	}
-	return controlClicked;
+	return false;
 }

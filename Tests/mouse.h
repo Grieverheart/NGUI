@@ -12,8 +12,6 @@ public:
 	void onPassiveMotion(int x, int y);
 private:
 	OpenGLContext *context;
-	int last_mx,last_my,cur_mx,cur_my;
-	bool dragging;
 	int windowWidth;
 	int windowHeight;
 };

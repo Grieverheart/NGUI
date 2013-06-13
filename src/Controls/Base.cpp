@@ -20,6 +20,11 @@ void Base::setPosition(Dim x, Dim y){
 	posY_ = y;
 }
 
+void Base::translate(int x, int y){
+	posX_.px += x;
+	posY_.px += y;
+}
+
 void Base::setTexture(const Texture& tex){
 	tex_ = tex;
 }
@@ -28,7 +33,7 @@ void Base::setParent(Base* parent){
 	parent_ = parent;
 }
 
-bool Base::onMouseClick(unsigned char btn, bool pressed, int mx, int my){
+bool Base::onMouseClick(unsigned char btn, bool isPressed, int mx, int my){
 	return false;
 }
 

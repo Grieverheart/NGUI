@@ -3,6 +3,12 @@
 
 #include <vector>
 
+#define NGUI_LBUTTON	0
+#define NGUI_MBUTTON	1
+#define NGUI_RBUTTON	2
+#define NGUI_XBUTTON1	3
+#define NGUI_XBUTTON2	4
+
 namespace NGUI{
 	namespace Controls{
 		class Base;

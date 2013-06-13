@@ -24,12 +24,16 @@ std::vector<VisualPacket> Window::getVisualPackets(void)const{
 
 void Window::onMouseMove(int mx, int my){
 	static bool isMouseInside = false;
-	if(isPointInside(mx, my)){
-		if(!isMouseInside) std::cout << "Mouse entered " << mx << ", " << my << std::endl;
-		isMouseInside = true;
+	for(auto control: controls_) control->onMouseMove(mx, my);
+}
+
+bool Window::onMouseClick(unsigned char btn, bool isPressed, int mx, int my){
+	bool returnVal = isPointInside(mx, my);
+	for(auto control: controls_){
+		if(control->onMouseClick(btn, isPressed, mx, my)){
+			returnVal = true;
+			break;
+		}
 	}
-	else if(isMouseInside){
-		std::cout << "Mouse left " << mx << ", " << my << std::endl;
-		isMouseInside = false;
-	}
+	return returnVal;
 }
