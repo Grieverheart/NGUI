@@ -30,7 +30,6 @@ namespace NGUI{
 	private:
 		Renderers::Base* renderer_;
 		std::vector<Controls::Base*> controls_;
-		int mx_, my_;
 		int width_, height_;
 	};
 

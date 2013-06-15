@@ -1,11 +1,11 @@
 #include "keyboard.h"
 #include <GL/freeglut.h>
+#include <cstdio>
 
-CKeyboard::CKeyboard(OpenGLContext *context){
-	keyRepeat     = false;
-	fullscreen    = false;
-	this->context = context;
-}
+CKeyboard::CKeyboard(void):
+	keyRepeat(false),
+	fullscreen(false)
+{}
 
 CKeyboard::~CKeyboard(void){
 }
@@ -27,7 +27,7 @@ void CKeyboard::keySpIsUp(int key){
 }
 
 void CKeyboard::keyOps(void){
-	if(keyMap[27]) glutLeaveMainLoop();//exit when escape
+	if(keyMap[27]) exitLoop = true;//exit when escape
 	
 	if(keyMap[13]){ //Enter
 		int mod = glutGetModifiers();

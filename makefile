@@ -3,7 +3,7 @@ OBJ=$(patsubst %.cpp, bin/%.o, $(notdir $(SRC)))
 EXE=main.exe
 
 CXX=g++
-CXXFLAGS=-Wall -O3 -std=c++0x
+CXXFLAGS=-Wall -O3 -std=c++0x -g
 LDFLAGS= -lglew32 -lopengl32 -lfreeglut -lfreeImage
 INC=-I./include
 RM=del /q

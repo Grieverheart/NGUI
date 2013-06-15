@@ -94,7 +94,7 @@ void OpenGL::drawVisualPackets(const std::vector<VisualPacket>& vipackets){
 		glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(rect.w_, rect.h_, 1.0f));
 		modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f*rect.w_ + rect.x_, height_ - 0.5f*rect.h_ - rect.y_, 0.0f)) * modelMatrix;
 		shader_->setUniform("modelMatrix", 1, modelMatrix);
-		glBindTexture(GL_TEXTURE_2D, *(GLuint*)tex.data_);
+		glBindTexture(GL_TEXTURE_2D, (GLuint)tex.index_);
 		
 		glBindVertexArray(vao_); 
 		glDrawArrays(GL_TRIANGLES, 0, 6);

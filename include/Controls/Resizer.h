@@ -1,14 +1,14 @@
-#ifndef __NGUI_ANCHOR_H
-#define __NGUI_ANCHOR_H
+#ifndef __NGUI_RESIZER_H
+#define __NGUI_RESIZER_H
 
 #include "Controls/Base.h"
 
 namespace NGUI{
 	namespace Controls{
 	
-		class Anchor: public Controls::Base{
+		class Resizer: public Controls::Base{
 		public:
-			Anchor(void);
+			Resizer(void);
 			void onMouseMove(int mx, int my);
 			bool onMouseClick(unsigned char btn, bool isDown);
 		private:

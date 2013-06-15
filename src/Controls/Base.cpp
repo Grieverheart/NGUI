@@ -6,7 +6,8 @@ using namespace NGUI::Controls;
 Base::Base(void):
 	posX_(0), posY_(0),
 	width_(1), height_(1),
-	tex_(nullptr),
+	tex_(0),
+	isHidden_(false),
 	parent_(nullptr)
 {}
 	
@@ -25,6 +26,11 @@ void Base::translate(int x, int y){
 	posY_.px += y;
 }
 
+void Base::resize(int x, int y){
+	width_.px  += x;
+	height_.px += y;
+}
+
 void Base::setTexture(const Texture& tex){
 	tex_ = tex;
 }
@@ -33,7 +39,22 @@ void Base::setParent(Base* parent){
 	parent_ = parent;
 }
 
-bool Base::onMouseClick(unsigned char btn, bool isPressed, int mx, int my){
+void Base::show(void){
+	isHidden_ = false;
+}
+
+void Base::hide(void){
+	isHidden_ = true;
+}
+
+bool Base::isHidden(void){
+	return isHidden_;
+}
+
+void Base::onMouseMove(int mx, int my){
+}
+
+bool Base::onMouseClick(unsigned char btn, bool isDown){
 	return false;
 }
 
@@ -67,6 +88,10 @@ int Base::getWidth(void)const{
 int Base::getHeight(void)const{
 	if(parent_) return (int)(height_.pct * parent_->getHeight()) + height_.px;
 	else return height_.px;
+}
+
+const Texture& Base::getActiveTexture(void)const{
+	return tex_;
 }
 
 VisualPacket Base::getVisualPacket(void)const{

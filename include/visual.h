@@ -11,10 +11,10 @@ namespace NGUI{
 	};
 
 	struct Texture{
-		Texture(void* data):
-			data_(data)
+		Texture(unsigned int index):
+			index_(index)
 		{}
-		void* data_;
+		unsigned int index_;
 	};
 
 	struct VisualPacket{
