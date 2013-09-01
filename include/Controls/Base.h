@@ -3,6 +3,7 @@
 
 #include "visual.h"
 #include "Dim.h"
+#include "TextProperties.h"
 #include <vector>
 
 namespace NGUI{
@@ -18,6 +19,8 @@ namespace NGUI{
 			void translate(int x, int y);
 			void resize(int x, int y);
 			void setTexture(const Texture& tex);
+			void setText(std::string text);
+			void setTextProperties(const NGUI::TextProperties& textProperties);
 			void setParent(Controls::Base* parent);
 			void show(void);
 			void hide(void);
@@ -40,13 +43,15 @@ namespace NGUI{
 			VisualPacket getVisualPacket(void)const;
 		
 		private:
-			Dim     posX_, posY_;
-			Dim     width_, height_;
-			Texture tex_;
-			bool    isHidden_;
+			Dim                  posX_, posY_;
+			Dim                  width_, height_;
+			Texture              tex_;
+			std::string          text_;
+			NGUI::TextProperties textProperties_;
+			bool                 isHidden_;
 		
 		protected:
-			Controls::Base* parent_;
+			Controls::Base*      parent_;
 		};
 		
 	}

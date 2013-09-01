@@ -11,6 +11,10 @@ namespace NGUI{
 			else if(pct < 0.0f) pct = 0.0f;
 		}
 		
+		int getAbsolute(int width, int x = 0)const{
+			return (int)(pct * width) + px + x;
+		}
+		
 		float pct;
 		int   px;
 	};

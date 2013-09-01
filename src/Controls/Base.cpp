@@ -35,6 +35,14 @@ void Base::setTexture(const Texture& tex){
 	tex_ = tex;
 }
 
+void Base::setText(std::string text){
+	text_ = text;
+}
+
+void Base::setTextProperties(const NGUI::TextProperties& textProperties){
+	textProperties_ = textProperties;
+}
+
 void Base::setParent(Base* parent){
 	parent_ = parent;
 }
@@ -61,32 +69,32 @@ bool Base::onMouseClick(unsigned char btn, bool isDown){
 //TODO: Cache Position and Size and refresh when parent is resized
 
 int Base::getPosX(void)const{
-	if(parent_) return (int)(posX_.pct * parent_->getWidth()) + posX_.px;
+	if(parent_) return posX_.getAbsolute(parent_->getWidth());
 	else return posX_.px;
 }
 
 int Base::getPosY(void)const{
-	if(parent_) return (int)(posY_.pct * parent_->getHeight()) + posY_.px;
+	if(parent_) return posY_.getAbsolute(parent_->getHeight());
 	else return posY_.px;
 }
 
 int Base::getAbsolutePosX(void)const{
-	if(parent_) return (int)(posX_.pct * parent_->getWidth()) + posX_.px + parent_->getAbsolutePosX();
+	if(parent_) return posX_.getAbsolute(parent_->getWidth(), parent_->getAbsolutePosX());
 	else return posX_.px;
 }
 
 int Base::getAbsolutePosY(void)const{
-	if(parent_) return (int)(posY_.pct * parent_->getHeight()) + posY_.px + parent_->getAbsolutePosY();
+	if(parent_) return posY_.getAbsolute(parent_->getHeight(), parent_->getAbsolutePosY());
 	else return posY_.px;
 }
 
 int Base::getWidth(void)const{
-	if(parent_) return (int)(width_.pct * parent_->getWidth()) + width_.px;
+	if(parent_) return width_.getAbsolute(parent_->getWidth());
 	else return width_.px;
 }
 
 int Base::getHeight(void)const{
-	if(parent_) return (int)(height_.pct * parent_->getHeight()) + height_.px;
+	if(parent_) return height_.getAbsolute(parent_->getHeight());
 	else return height_.px;
 }
 
@@ -95,8 +103,15 @@ const Texture& Base::getActiveTexture(void)const{
 }
 
 VisualPacket Base::getVisualPacket(void)const{
-	Rect rect(getWidth(), getHeight(), getAbsolutePosX(), getAbsolutePosY());
-	return VisualPacket(rect, tex_);
+	int x = getAbsolutePosX(), y = getAbsolutePosY();
+	int w = getWidth(), h = getHeight();
+	Rect rect(getWidth(), getHeight(), x, y);
+	
+	x = textProperties_.x_.getAbsolute(w, x);
+	y = textProperties_.y_.getAbsolute(h, y);
+	Text text(text_, textProperties_.font_, textProperties_.width_, x, y);
+	
+	return VisualPacket(rect, tex_, text);
 }
 
 std::vector<VisualPacket> Base::getVisualPackets(void)const{

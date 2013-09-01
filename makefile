@@ -4,7 +4,7 @@ EXE=main.exe
 
 CXX=g++
 CXXFLAGS=-Wall -O3 -std=c++0x -g
-LDFLAGS= -lglew32 -lopengl32 -lfreeglut -lfreeImage
+LDFLAGS= -lglew32 -lopengl32 -lfreeglut -lfreeImage -lfreetype
 INC=-I./include
 RM=del /q
 

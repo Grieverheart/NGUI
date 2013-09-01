@@ -2,6 +2,7 @@
 #define __NGUI_OGLRENDERER_H
 
 #include "Renderers/Base.h"
+#include "Renderers/OpenGLText.h"
 
 class Shader;
 
@@ -21,6 +22,8 @@ namespace NGUI{
 			int width_, height_;
 			
 			Shader *shader_;
+			
+			OpenGLText textRenderer_;
 		};
 		
 	}
