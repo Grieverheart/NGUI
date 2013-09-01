@@ -1,25 +1,16 @@
-#ifndef __TEXT_MANAGER_H
-#define __TEXT_MANAGER_H
+#ifndef __OPENGL_FONT_H
+#define __OPENGL_FONT_H
 
 #include <map>
 #include <cstdint>
 #include <ft2build.h>
-#include "visual.h"
-#include "Renderers/shader.h"
 #include FT_FREETYPE_H
+#include "visual.h"
 
 namespace NGUI{
 	namespace Renderers{
-		class OpenGLText{
+		class OpenGLFont{
 		public:
-			OpenGLText(void);
-			~OpenGLText(void);
-			void renderText(const Text &text);
-		private:
-			GLuint loadGlyphTexture(FT_Face face, uint32_t character);
-			void renderChar(void);
-			
-		private:
 			struct Glyph{
 				Glyph(void):
 					tex_(0)
@@ -27,6 +18,21 @@ namespace NGUI{
 				FT_Glyph_Metrics metrics_;
 				unsigned int tex_;
 			};
+		
+		public:
+			OpenGLFont(void);
+			~OpenGLFont(void);
+			const Glyph* getCharGlyph(std::string fontName, uint32_t character);
+			void setDefaultWidth(unsigned int width){
+				defaultWidth_ = width;
+			}
+			unsigned int getDefaultWidth(void)const{
+				return defaultWidth_;
+			}
+			
+		private:
+			unsigned int defaultWidth_;
+			
 			typedef std::map<uint32_t, Glyph> CharacterGlyphMap;
 			struct Font{
 				Font(void):
@@ -37,7 +43,6 @@ namespace NGUI{
 			};
 			std::map<std::string, Font> FontMap_;
 			FT_Library ftLibrary_;
-			Shader shader_;
 		};
 	}
 }

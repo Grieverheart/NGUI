@@ -146,6 +146,13 @@ namespace{
 		panel2->setSize(NGUI::Dim(0, 1.0f), 25);
 		texData = tex_manager_->load("linen_solarized.png");
 		panel2->setTexture(NGUI::Texture(texData));
+		panel2->setText("Hello World");
+		NGUI::TextProperties textProp;
+		textProp.font_  = "C:/Windows/Fonts/consola.ttf";
+		textProp.width_ = 24;
+		textProp.x_ = NGUI::Dim(10, 0.0f);
+		textProp.y_ = NGUI::Dim(-5, 1.0f);
+		panel2->setTextProperties(textProp);
 		
 		window->addControl(button);
 		button->setSize(100, 50);
